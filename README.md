@@ -1,4 +1,4 @@
-# 📘 Eden Box Documentation
+# Eden Box Documentation
 
 ## Description
 These documents summarize all knowledge needed in order to redeploy and maintain the existing Eden Box project components, while requiring only basic Linux and sysadmin knowledge, easily acquirable online.
