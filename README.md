@@ -5,25 +5,25 @@ These documents summarize all knowledge needed in order to redeploy and maintain
 
 ## Outline
 The project relies upon two Ubuntu virtual machines, both provided by [Okeanos-Global](./services/okeanos.md).
-Both machines automatically update daily at 2 a.m WEST, using unattended-upgrades utility.
-Additionally, the machines create a snapshot of their current state twice a month (1st and 15th) and upload it to the Okeanos [Pithos](./services/okeanos.md#pithos) service, in order to provide recoverability means in case of severe failure of the VMs.
-Given that Pithos' capacity is limited, these snapshots overwrite older ones so that, at a given time, only 4 distinct snapshots of a machine are stored in the cloud.
+Both machines automatically update daily at 6 a.m WEST, using unattended-upgrades utility.
+Additionally, machines create a snapshot of their current state twice a month (1st and 15th) and upload it to Okeanos [Pithos](./services/okeanos.md#pithos) service, providing recoverability means in case of severe failure of the VMs.
+Given that Pithos' capacity is limited, these snapshots overwrite older ones so that, at a given time, only 2 distinct snapshots of a machine are stored in the cloud.
 
 The machine with the role of file server, designated from here on as _eden-fs_, provides:
-- Nextcloud service, responsible for providing the file storage platform;
+- Nextcloud service, the file storage platform;
 - Public interface to Nextcloud;
-- Python log reader, responsible for detecting file access entries written to the Nextcloud log and sending them to the database.
+- Python application, requests file access entries of Nextcloud log and sends them to the database.
 
-The machine with the role of database, designated from here on as _eden-db_, provides:
-- PostgreSQL database, responsible for saving timestamps of each file access on the server side
+The machine with database role, designated from here on as _eden-db_, provides:
+- PostgreSQL database, saves the timestamps of each file accessed on the server
 <!--* TODO add Data Science capabilities information -->
 
-For more information about the machines, please refer to [machines](./service/machines.md) section.
+For more information about the machines, please refer to [machines](./services/machines.md) section.
 
-Each of the admin members can access the machines through ssh authentication, solemnly to their own user.
-The required RSA keys are ad-hoc distributed to each of the users.
-Note that the key used to authenticate a user is the same on both machines, which allows easier configuration at the expense of a more resilient security solution.
-The safest option would require a key pair per-user for each machine, although less pratical to manage.
+Each admin member can access the machines through ssh authentication, solemnly to their own user.
+These required RSA keys are ad-hoc distributed to each user.
+The key used to authentication a user is the same on both machines, which allows easier configuration at the expense of a more resilient security solution.
+Although less pratical to manage, the safest option would require a key pair per-user for each machine.
 
 ## Deployment
 More information is available on the [deployment](./deployment/) section. 
@@ -33,7 +33,7 @@ Even though many maintenance steps have been suppressed through automation, ther
 Please refer to the [maintenance](./maintenance/) section for more information.
 
 ## Security Concerns
-Up to the available knowledge at the time of deployment, the best practices and concerns related to Cyber-security have been attended. However, the system's resilience to miscreants still relies on the most vulnerable link: its users. Therefore, extreme care is advised to admin users whilst handling private keys and database user certificates, as those possessing them are implicitly provided access to machines and are therefore able to undermine the system at will. Hence, under any circumstance should they grant access to third parties whose trust is not assured.
+Up to the available knowledge at the time of deployment, the best practices and concerns related to Cyber-security have been attended. However, the system's resilience to miscreants still relies on the most vulnerable link: its users. Therefore, extreme care is advised to admin users whilst handling private keys and database user certificates, as those possessing them are implicitly provided access to machines and therefore able to undermine the system at will. Hence, under any circumstance should admin users grant access to third parties whose trust is not assured.
 
 ## License
 All documentation in this repository is licensed under the Creative Commons Attribution 4.0 International license ([CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)).

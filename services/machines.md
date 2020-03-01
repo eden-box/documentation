@@ -1,7 +1,7 @@
 # Machines
 
 ## New Admin Setup
-In order to add a new admin, a set of tasks must be performed, both on the server side (both machines) and client side (new user).
+In order to add a new admin, a set of tasks must be performed both on the server side (both machines) and client side (new user).
 Note that only a sudoer is able to add new admins.
 
 ### Server
@@ -11,18 +11,18 @@ _Strictly follow the procedure without changing any file name during this proces
 
 \<username\> will represent the name intended for the user we want to add
 
-As a sudoer user,
+As a sudoer,
 
 Run script ```/usr/local/sbin/manageuser.sh``` at eden-fs,
 - ```cd /usr/local/sbin```
 - ```sudo manageuser.sh -c <username>```
-Provide a minimally secure password when requested.
-This password should later be changed by the new user, during his first access to the machine.
+Provide an acceptably secure password when requested.
+This password should later be changed by the new user during his first access to the machine.
 
-Afterwards, a zip file with the required information for the new user to execute the needed ssh setup at his machine
+Afterwards, a zip file with the required information for the new user to execute the ssh setup at his machine
 will be present at the folder containing the script.
 
-A similar setup now must be executed in eden-db.
+A similar setup must now be executed in eden-db.
 Make sure that a public key <username>.pub is present on the same folder where the script is located.
 - ```cd /usr/local/sbin```
 - ```sudo manageuser.sh -u <username>```
@@ -41,7 +41,7 @@ Afterwards, the client side setup can be made as follows:
 
 From a Linux system terminal,
 
-Obs. keep in mind that \<username\> corresponds to your username on the remote machines.
+Keep in mind that \<username\> corresponds to your username on the remote machines.
 Furthermore, your current account password is on the zip's <username> password.txt (will be changed later).
 
 - access /home/username/ aka ~/
@@ -53,10 +53,10 @@ Furthermore, your current account password is on the zip's <username> password.t
 - add the following entry:
 ```
 Host eden-fs
-	HostName 83.212.82.36
+	HostName <eden_fs_ipv4>
 
 Host eden-db
-	HostName 83.212.82.38
+	HostName <eden_db_ipv4>
 
 Host eden-fs eden-db
 	User <username>
@@ -84,7 +84,8 @@ Using apt-get, package lists are update and and fetched. In case of linux header
 
 ### Snapshots
 Located in ```/usr/local/sbin/```, [backup.sh](backup.sh) is executed by cron job run at the 1st and 15th day of each month, at 4 a.m WEST.
-The system saves the 4 most recent snapshots, corresponding to a 2 months range.
+The system saves the 2 most recent snapshots, corresponding to a month.
 
 In order for the script to work properly, the token, located in a file, needs to be updated monthly.
 Okeanos automatically renews the API token monthly and, currently, there is no way to automate this update process, therefore, an admin needs to manually update the token.
+
